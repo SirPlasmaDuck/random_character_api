@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 import random
 from .models import Character
 from .names import CHARACTER_NAMES
@@ -76,8 +76,13 @@ def save_character(request):
             wisdom = request.POST['wisdom'],
             charisma = request.POST['charisma'],
         )
-    return redirect('home')
+    return redirect('character_archive')
 
 def character_archive(request):
     characters = Character.objects.all()
     return render(request, 'characters/character_archive.html', {'characters': characters})
+
+def delete_character(request, character_id):
+    character = get_object_or_404(Character, id=character_id)
+    character.delete()
+    return redirect('character_archive')

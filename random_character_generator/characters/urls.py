@@ -6,4 +6,5 @@ urlpatterns = [
     path('generate/', views.generate_random_character, name='generate_character'),
     path('save/', views.save_character, name='save_character'),
     path('archive/', views.character_archive, name='character_archive'),
+    path('delete/<int:character_id>/', views.delete_character, name='delete_character'),
 ]
