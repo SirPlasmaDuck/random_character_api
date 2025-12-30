@@ -1,19 +1,27 @@
+{%  load static %}
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Random Character</title>
+    <link rel="stylesheet" href="{%  static 'core/style.css' %}">
 </head>
 <body>
-    <h1>{{ character.name }}</h1>
-    <p><strong>Class:</strong> {{ character.character_class }}</p>
-    <p><strong>Race:</strong> {{ character.character_race }}</p>
-    <p><strong>Strength:</strong> {{ character.strength }}</p>
-    <p><strong>Dexterity:</strong> {{ character.dexterity }}</p>
-    <p><strong>Constitution:</strong> {{ character.constitution }}</p>
-    <p><strong>Intelligence:</strong> {{ character.intelligence }}</p>
-    <p><strong>Wisdom:</strong> {{ character.wisdom }}</p>
-    <p><strong>Charisma:</strong> {{ character.charisma }}</p>
+    <div class="character-card">
+        <h1>{{ character.name }}</h1>
+            <p><strong>Class:</strong> {{ character.character_class }}</p>
+            <p><strong>Race:</strong> {{ character.character_race }}</p>
+            <p><strong>Strength:</strong> {{ character.strength }}</p>
+            <p><strong>Dexterity:</strong> {{ character.dexterity }}</p>
+            <p><strong>Constitution:</strong> {{ character.constitution }}</p>
+            <p><strong>Intelligence:</strong> {{ character.intelligence }}</p>
+            <p><strong>Wisdom:</strong> {{ character.wisdom }}</p>
+            <p><strong>Charisma:</strong> {{ character.charisma }}</p>
 
-    <a href='/characters/generate/'>Generate Another Character</a>
+        <div class="buttons">
+            <a href="/characters/generate/" class="btn">Generate Another Character</a>
+            <a href="/" class="btn">Home</a>
+        </div>
+    </div>
 </body>
 </html>
