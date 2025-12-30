@@ -1,6 +1,6 @@
 {%  load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Random Character</title>
@@ -18,9 +18,27 @@
             <p><strong>Wisdom:</strong> {{ character.wisdom }}</p>
             <p><strong>Charisma:</strong> {{ character.charisma }}</p>
 
-        <div class="buttons">
-            <a href="/characters/generate/" class="btn">Generate Another Character</a>
-            <a href="/" class="btn">Home</a>
+        <div class="card-buttons">
+            <div class="left_buttons">
+                <a href="/characters/generate/" class="btn">Generate Another Character</a>
+                <a href="/" class="btn">Home</a>
+            </div>
+
+            <div class="right_buttons">
+                <form method="post" action="{% url 'save_character' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="name" value="{{ character.name }}">
+                    <input type="hidden" name="character_class" value="{{ character.character_class }}">
+                    <input type="hidden" name="character_race" value="{{ character.character_race }}">
+                    <input type="hidden" name="strength" value="{{ character.strength }}">
+                    <input type="hidden" name="dexterity" value="{{ character.dexterity }}">
+                    <input type="hidden" name="constitution" value="{{ character.constitution }}">
+                    <input type="hidden" name="intelligence" value="{{ character.intelligence }}">
+                    <input type="hidden" name="wisdom" value="{{ character.wisdom }}">
+                    <input type="hidden" name="charisma" value="{{ character.charisma }}">
+                    <button type="submit" class="btn">Save Character</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>

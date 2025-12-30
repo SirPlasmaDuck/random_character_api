@@ -20,11 +20,22 @@ body {
     max-width: 750px;
 }
 
-.character-card .buttons {
+.card-buttons {
     display: flex;
-    flex-direction: column;
-    max-width: 275px;
+    justify-content: space-between;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.left-buttons,
+.right-buttons {
+    display: flex;
     gap: 10px;
+}
+
+
+.right-buttons {
+    display: flex;
 }
 h1 {
     font-size: 3rem;

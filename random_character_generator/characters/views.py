@@ -1,17 +1,18 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 import random
 from .models import Character
 from .names import CHARACTER_NAMES
 
 def generate_random_character(request):
-    # Pick a random name from the provided list
+    # pick a random name from the provided list
     name = random.choice(CHARACTER_NAMES)
 
-    # Pick a random class and race
+    # pick a random class and race
     character_class = random.choice([choice[0] for choice in Character.CLASS_CHOICES])
     character_race = random.choice([choice[0] for choice in Character.RACE_CHOICES])
 
-    # Determine priority stats for class
+    # determine stat priority reflecting the chosen class
     priority_stats = {
         'artificer': ('intelligence', 'constitution'),
         'barbarian': ('strength', 'constitution'),
@@ -30,12 +31,12 @@ def generate_random_character(request):
 
     primary, secondary = priority_stats.get(character_class.lower(), ('strength', 'dexterity'))
 
-    # Generate random stats
+    # generate the stats based on stat priority
     def generate_stat(stat_name):
         if stat_name == primary:
             return random.randint(13,18)
         elif stat_name == secondary:
-            return random.randint(13,16)
+            return random.randint(10,16)
         else:
             return random.randint(7,12)
 
@@ -46,8 +47,8 @@ def generate_random_character(request):
     intelligence = generate_stat('intelligence')
     charisma = generate_stat('charisma')
 
-    # Create and save the character
-    character = Character.objects.create(
+    # create the character
+    character = Character(
         name = name,
         character_class = character_class,
         character_race = character_race,
@@ -60,3 +61,19 @@ def generate_random_character(request):
     )
 
     return render(request, 'characters/character_detail.html', {'character': character})
+
+
+def save_character(request):
+    if request.method == "POST":
+        Character.objects.create(
+            name = request.POST['name'],
+            character_class = request.POST['character_class'],
+            character_race = request.POST['character_race'],
+            strength = request.POST['strength'],
+            dexterity = request.POST['dexterity'],
+            constitution = request.POST['constitution'],
+            intelligence = request.POST['intelligence'],
+            wisdom = request.POST['wisdom'],
+            charisma = request.POST['charisma'],
+        )
+    return redirect('home')
